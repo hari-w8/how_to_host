@@ -1,4 +1,4 @@
-
+# view site: https://hari-w8.github.io/how_to_host/
 Absolutely 😎 Since this README is specifically about **what you learned and did while hosting a React + Vite project on GitHub Pages**, here's a clean progression you can paste directly into `README.md`.
 
 ````md
