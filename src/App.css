@@ -1,0 +1,1935 @@
+/* =====================================================
+   GLOBAL
+===================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  width: 100%;
+  height: 100%;
+}
+
+body {
+  overflow: hidden;
+  background: #080712;
+
+  font-family:
+    "Segoe UI",
+    system-ui,
+    sans-serif;
+}
+
+
+/* =====================================================
+   MAIN PAGE
+===================================================== */
+
+.page {
+  position: relative;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 50% 45%,
+      rgba(245, 168, 200, 0.11),
+      transparent 32%
+    ),
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(130, 90, 255, 0.08),
+      transparent 25%
+    ),
+    #080712;
+}
+
+
+/* =====================================================
+   BACKGROUND GLOW
+===================================================== */
+
+.background-glow {
+  position: absolute;
+
+  width: 520px;
+  height: 520px;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      rgba(245, 168, 200, 0.08),
+      transparent 65%
+    );
+
+  filter: blur(30px);
+
+  pointer-events: none;
+}
+
+.background-orb {
+  position: absolute;
+
+  border-radius: 50%;
+
+  pointer-events: none;
+
+  filter: blur(70px);
+}
+
+.orb-one {
+  width: 180px;
+  height: 180px;
+
+  left: 8%;
+  top: 15%;
+
+  background: rgba(242, 165, 199, 0.035);
+}
+
+.orb-two {
+  width: 220px;
+  height: 220px;
+
+  right: 8%;
+  bottom: 12%;
+
+  background: rgba(180, 130, 255, 0.035);
+}
+
+
+/* =====================================================
+   CAT WRAPPER
+===================================================== */
+
+.cat-wrapper {
+  position: absolute;
+
+  width: 400px;
+  height: 420px;
+
+  left: 0;
+  top: 0;
+
+  cursor: pointer;
+
+  transform-origin: center;
+
+  user-select: none;
+
+  z-index: 10;
+
+  transition:
+    filter 0.25s ease;
+}
+
+
+/* =====================================================
+   WALKING
+===================================================== */
+
+.cat-wrapper:not(.sleeping):not(.cat-attacking)
+  .anime-cat {
+  animation:
+    walkingBody
+    0.42s
+    ease-in-out
+    infinite;
+}
+
+@keyframes walkingBody {
+  0% {
+    margin-top: 0;
+  }
+
+  50% {
+    margin-top: -5px;
+  }
+
+  100% {
+    margin-top: 0;
+  }
+}
+
+
+/* =====================================================
+   SLEEP / IDLE
+===================================================== */
+
+.cat-wrapper.sleeping .anime-cat {
+  animation:
+    sleepingBody
+    2.5s
+    ease-in-out
+    infinite;
+}
+
+@keyframes sleepingBody {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-4px);
+  }
+}
+
+
+/* =====================================================
+   CAT SHADOW
+===================================================== */
+
+.cat-shadow {
+  transform-origin: center;
+
+  animation:
+    shadowAnimation
+    0.42s
+    ease-in-out
+    infinite;
+}
+
+@keyframes shadowAnimation {
+  0%,
+  100% {
+    transform: scaleX(1);
+    opacity: 0.35;
+  }
+
+  50% {
+    transform: scaleX(0.88);
+    opacity: 0.22;
+  }
+}
+
+.sleeping .cat-shadow {
+  animation-duration: 2.5s;
+}
+
+
+/* =====================================================
+   TAIL
+===================================================== */
+
+.tail {
+  transform-origin: 280px 300px;
+
+  animation:
+    tailAnimation
+    1.1s
+    ease-in-out
+    infinite;
+}
+
+@keyframes tailAnimation {
+  0%,
+  100% {
+    transform: rotate(0deg);
+  }
+
+  50% {
+    transform: rotate(9deg);
+  }
+}
+
+.sleeping .tail {
+  animation-duration: 3s;
+}
+
+
+/* =====================================================
+   EARS
+===================================================== */
+
+.left-ear {
+  transform-origin: 140px 115px;
+
+  animation:
+    leftEarAnimation
+    2.8s
+    ease-in-out
+    infinite;
+}
+
+.right-ear {
+  transform-origin: 260px 115px;
+
+  animation:
+    rightEarAnimation
+    2.8s
+    ease-in-out
+    infinite;
+}
+
+@keyframes leftEarAnimation {
+  0%,
+  88%,
+  100% {
+    transform: rotate(0);
+  }
+
+  92% {
+    transform: rotate(-6deg);
+  }
+}
+
+@keyframes rightEarAnimation {
+  0%,
+  88%,
+  100% {
+    transform: rotate(0);
+  }
+
+  92% {
+    transform: rotate(6deg);
+  }
+}
+
+
+/* =====================================================
+   EYES / BLINK
+===================================================== */
+
+.eyes {
+  transform-origin: center;
+
+  animation:
+    blink
+    4s
+    infinite;
+}
+
+@keyframes blink {
+  0%,
+  43%,
+  47%,
+  100% {
+    transform: scaleY(1);
+  }
+
+  45% {
+    transform: scaleY(0.08);
+  }
+}
+
+
+/* =====================================================
+   HAPPY
+===================================================== */
+
+.happy {
+  filter:
+    drop-shadow(
+      0 0 15px
+      rgba(245, 168, 200, 0.18)
+    );
+}
+
+.happy .blush {
+  animation:
+    blushAnimation
+    0.7s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes blushAnimation {
+  from {
+    opacity: 0.5;
+    transform: scaleX(0.9);
+  }
+
+  to {
+    opacity: 1;
+    transform: scaleX(1.1);
+  }
+}
+
+.happy-mouth {
+  animation:
+    smileAnimation
+    0.4s
+    ease-out;
+}
+
+@keyframes smileAnimation {
+  from {
+    opacity: 0;
+    transform: scale(0.7);
+  }
+
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+
+/* =====================================================
+   ANGRY
+===================================================== */
+
+.angry {
+  filter:
+    drop-shadow(
+      0 0 18px
+      rgba(255, 100, 120, 0.28)
+    );
+
+  animation:
+    angryShake
+    0.13s
+    infinite;
+}
+
+@keyframes angryShake {
+  0% {
+    margin-left: 0;
+  }
+
+  25% {
+    margin-left: -2px;
+  }
+
+  75% {
+    margin-left: 2px;
+  }
+
+  100% {
+    margin-left: 0;
+  }
+}
+
+.angry .blush {
+  fill: #ff7777;
+}
+
+.angry-meow {
+  color: #ff8ba8 !important;
+}
+
+
+/* =====================================================
+   CRYING
+===================================================== */
+
+.crying {
+  filter:
+    drop-shadow(
+      0 0 20px
+      rgba(80, 190, 255, 0.22)
+    );
+}
+
+.tears {
+  animation:
+    tearsAnimation
+    0.7s
+    ease-in-out
+    infinite
+    alternate;
+}
+
+@keyframes tearsAnimation {
+  from {
+    opacity: 0.7;
+    transform: translateY(0);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(5px);
+  }
+}
+
+.cry-meow {
+  color: #75d2ff !important;
+}
+
+
+/* =====================================================
+   IDLE BUBBLES
+===================================================== */
+
+.idle-bubbles {
+  position: absolute;
+
+  right: 30px;
+  top: 65px;
+
+  width: 70px;
+  height: 70px;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.idle-dot {
+  position: absolute;
+
+  color: #c7b8ff;
+
+  font-size: 25px;
+  font-weight: bold;
+
+  opacity: 0;
+
+  animation:
+    idleBubble
+    2.4s
+    ease-in-out
+    infinite;
+}
+
+.dot1 {
+  right: 5px;
+  bottom: 0;
+}
+
+.dot2 {
+  right: 22px;
+  bottom: 20px;
+
+  font-size: 19px;
+
+  animation-delay: 0.35s;
+}
+
+.dot3 {
+  right: 38px;
+  bottom: 37px;
+
+  font-size: 14px;
+
+  animation-delay: 0.7s;
+}
+
+@keyframes idleBubble {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(8px)
+      scale(0.5);
+  }
+
+  30% {
+    opacity: 0.7;
+  }
+
+  70% {
+    opacity: 0.7;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-12px)
+      scale(1);
+  }
+}
+
+
+/* =====================================================
+   MEOW TEXT
+===================================================== */
+
+.meow-text {
+  position: absolute;
+
+  left: 50%;
+  bottom: -2px;
+
+  transform: translateX(-50%);
+
+  color: #f5a8c8;
+
+  font-size: 18px;
+
+  font-weight: 600;
+
+  letter-spacing: 1px;
+
+  white-space: nowrap;
+
+  text-shadow:
+    0 0 10px
+    rgba(245, 168, 200, 0.3);
+
+  pointer-events: none;
+
+  animation:
+    meowFloat
+    1.7s
+    ease-in-out
+    infinite;
+}
+
+@keyframes meowFloat {
+  0%,
+  100% {
+    transform:
+      translateX(-50%)
+      translateY(0);
+
+    opacity: 0.7;
+  }
+
+  50% {
+    transform:
+      translateX(-50%)
+      translateY(-5px);
+
+    opacity: 1;
+  }
+}
+
+.sleep-meow {
+  color: #c7b8ff;
+
+  animation:
+    sleepyMeow
+    1.8s
+    ease-in-out
+    infinite;
+}
+
+@keyframes sleepyMeow {
+  0% {
+    opacity: 0.35;
+
+    transform:
+      translateX(-50%)
+      translateY(3px);
+  }
+
+  50% {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(-4px);
+  }
+
+  100% {
+    opacity: 0.35;
+
+    transform:
+      translateX(-50%)
+      translateY(3px);
+  }
+}
+
+
+/* =====================================================
+   HEARTS
+===================================================== */
+
+.heart-effects {
+  position: absolute;
+
+  width: 120px;
+  height: 130px;
+
+  top: 25px;
+  left: 140px;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+.heart-effects span {
+  position: absolute;
+
+  color: #ff9fc8;
+
+  font-size: 20px;
+
+  animation:
+    heartFloat
+    2s
+    ease-in-out
+    infinite;
+}
+
+.heart-effects span:nth-child(1) {
+  left: 10px;
+  top: 50px;
+}
+
+.heart-effects span:nth-child(2) {
+  left: 80px;
+  top: 35px;
+
+  font-size: 16px;
+
+  animation-delay: 0.5s;
+}
+
+.heart-effects span:nth-child(3) {
+  left: 55px;
+  top: 5px;
+
+  font-size: 13px;
+
+  animation-delay: 1s;
+}
+
+@keyframes heartFloat {
+  0% {
+    opacity: 0;
+
+    transform:
+      translateY(15px)
+      scale(0.5);
+  }
+
+  30% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translateY(-35px)
+      scale(1.2);
+  }
+}
+
+
+/* =====================================================
+   CRY TEXT
+===================================================== */
+
+.cry-text {
+  position: absolute;
+
+  top: 70px;
+  left: 50%;
+
+  transform:
+    translateX(-50%);
+
+  color: #72d5ff;
+
+  font-size: 22px;
+
+  font-weight: bold;
+
+  animation:
+    cryText
+    0.8s
+    ease-in-out
+    infinite
+    alternate;
+
+  z-index: 20;
+
+  pointer-events: none;
+}
+
+@keyframes cryText {
+  from {
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+
+  to {
+    transform:
+      translateX(-50%)
+      translateY(-5px);
+  }
+}
+
+
+/* =====================================================
+   ANGRY SYMBOL
+===================================================== */
+
+.angry-symbol {
+  position: absolute;
+
+  right: 42px;
+  top: 70px;
+
+  font-size: 28px;
+
+  animation:
+    angrySymbol
+    0.3s
+    ease-in-out
+    infinite
+    alternate;
+
+  z-index: 30;
+
+  pointer-events: none;
+}
+
+@keyframes angrySymbol {
+  from {
+    transform:
+      rotate(-8deg)
+      scale(0.9);
+  }
+
+  to {
+    transform:
+      rotate(8deg)
+      scale(1.1);
+  }
+}
+
+
+/* =====================================================
+   WALKING ARMS
+===================================================== */
+
+.cat-wrapper:not(.sleeping):not(.cat-attacking)
+  .left-arm {
+  animation:
+    leftArm
+    0.42s
+    ease-in-out
+    infinite;
+}
+
+.cat-wrapper:not(.sleeping):not(.cat-attacking)
+  .right-arm {
+  animation:
+    rightArm
+    0.42s
+    ease-in-out
+    infinite;
+}
+
+@keyframes leftArm {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(-5deg);
+  }
+}
+
+@keyframes rightArm {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+
+  50% {
+    transform: rotate(5deg);
+  }
+}
+
+
+/* =====================================================
+   CLICK COUNTER
+===================================================== */
+
+.click-counter {
+  position: fixed;
+
+  left: 50%;
+  bottom: 35px;
+
+  transform: translateX(-50%);
+
+  padding: 8px 16px;
+
+  border-radius: 999px;
+
+  border: 1px solid
+    rgba(245, 168, 200, 0.15);
+
+  background:
+    rgba(20, 15, 30, 0.7);
+
+  color: #d8c7ff;
+
+  font-size: 12px;
+
+  letter-spacing: 0.5px;
+
+  backdrop-filter: blur(12px);
+
+  z-index: 50;
+
+  animation:
+    counterAppear
+    0.25s
+    ease-out;
+}
+
+@keyframes counterAppear {
+  from {
+    opacity: 0;
+
+    transform:
+      translateX(-50%)
+      translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+
+    transform:
+      translateX(-50%)
+      translateY(0);
+  }
+}
+
+
+/* =====================================================
+   =====================================================
+   ================= SCREEN ATTACK =====================
+   =====================================================
+===================================================== */
+
+.attack-screen {
+  position: fixed;
+
+  inset: 0;
+
+  width: 100vw;
+  height: 100vh;
+
+  overflow: hidden;
+
+  z-index: 1000;
+
+  pointer-events: none;
+
+  /*
+    Main 3D perspective.
+  */
+
+  perspective: 1100px;
+
+  transform-style: preserve-3d;
+
+  animation:
+    screenAttackShake
+    0.11s
+    linear
+    infinite;
+}
+
+
+/* =====================================================
+   3D SCREEN SHAKE
+===================================================== */
+
+@keyframes screenAttackShake {
+
+  0% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateX(0)
+      rotateY(0);
+  }
+
+  20% {
+    transform:
+      translate3d(-7px, 4px, 0)
+      rotateX(0.5deg)
+      rotateY(-0.5deg);
+  }
+
+  40% {
+    transform:
+      translate3d(8px, -5px, 0)
+      rotateX(-0.5deg)
+      rotateY(0.5deg);
+  }
+
+  60% {
+    transform:
+      translate3d(-5px, -7px, 0)
+      rotateX(0.4deg)
+      rotateY(-0.4deg);
+  }
+
+  80% {
+    transform:
+      translate3d(6px, 5px, 0)
+      rotateX(-0.3deg)
+      rotateY(0.3deg);
+  }
+
+  100% {
+    transform:
+      translate3d(0, 0, 0)
+      rotateX(0)
+      rotateY(0);
+  }
+}
+
+
+/* =====================================================
+   DARK SCREEN DEPTH
+===================================================== */
+
+.screen-depth {
+  position: absolute;
+
+  inset: -10%;
+
+  background:
+    radial-gradient(
+      ellipse at center,
+      transparent 18%,
+      rgba(0, 0, 0, 0.25) 52%,
+      rgba(0, 0, 0, 0.85) 100%
+    );
+
+  opacity: 0;
+
+  animation:
+    depthAppear
+    2.3s
+    ease-out
+    forwards;
+}
+
+@keyframes depthAppear {
+
+  0% {
+    opacity: 0;
+  }
+
+  18% {
+    opacity: 0.9;
+  }
+
+  100% {
+    opacity: 0.5;
+  }
+}
+
+
+/* =====================================================
+   WHITE IMPACT FLASH
+===================================================== */
+
+.attack-flash {
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    radial-gradient(
+      circle at center,
+      rgba(255, 255, 255, 0.98),
+      rgba(255, 255, 255, 0.42) 23%,
+      transparent 68%
+    );
+
+  opacity: 0;
+
+  animation:
+    attackFlash
+    2.3s
+    ease-out
+    forwards;
+}
+
+@keyframes attackFlash {
+
+  0% {
+    opacity: 0;
+  }
+
+  6% {
+    opacity: 0.95;
+  }
+
+  12% {
+    opacity: 0;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+
+/* =====================================================
+   SCREEN TEARS CONTAINER
+===================================================== */
+
+.screen-tears {
+  position: absolute;
+
+  inset: 0;
+
+  width: 100%;
+  height: 100%;
+
+  transform-style: preserve-3d;
+}
+
+
+/* =====================================================
+   INDIVIDUAL SCREEN TEAR
+===================================================== */
+
+.tear {
+  position: absolute;
+
+  top: 10%;
+
+  width: 9px;
+  height: 80%;
+
+  transform-style: preserve-3d;
+
+  opacity: 0;
+
+  transform:
+    rotateZ(-25deg)
+    rotateY(-40deg)
+    rotateX(10deg)
+    scaleY(0.02)
+    translateZ(-500px);
+
+  animation:
+    tearOpen
+    0.78s
+    cubic-bezier(0.1, 0.85, 0.15, 1)
+    forwards;
+}
+
+
+/* =====================================================
+   THREE CLAWS ONLY
+===================================================== */
+
+.tear-one {
+  left: 32%;
+
+  animation-delay: 0.28s;
+}
+
+.tear-two {
+  left: 48%;
+
+  animation-delay: 0.40s;
+}
+
+.tear-three {
+  left: 64%;
+
+  animation-delay: 0.52s;
+}
+
+
+/* =====================================================
+   3D TEAR OPENING
+===================================================== */
+
+@keyframes tearOpen {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      rotateZ(-25deg)
+      rotateY(-40deg)
+      rotateX(10deg)
+      scaleY(0.02)
+      translateZ(-500px);
+  }
+
+  12% {
+    opacity: 1;
+  }
+
+  35% {
+    opacity: 1;
+
+    transform:
+      rotateZ(-25deg)
+      rotateY(-28deg)
+      rotateX(7deg)
+      scaleY(0.72)
+      translateZ(120px);
+  }
+
+  55% {
+    opacity: 1;
+
+    transform:
+      rotateZ(-25deg)
+      rotateY(-8deg)
+      rotateX(2deg)
+      scaleY(1.08)
+      translateZ(55px);
+  }
+
+  72% {
+    opacity: 1;
+
+    transform:
+      rotateZ(-25deg)
+      rotateY(0deg)
+      rotateX(0)
+      scaleY(1)
+      translateZ(0);
+  }
+
+  100% {
+    opacity: 0.96;
+
+    transform:
+      rotateZ(-25deg)
+      rotateY(0deg)
+      rotateX(0)
+      scaleY(1)
+      translateZ(0);
+  }
+}
+
+
+/* =====================================================
+   WHITE OUTER EDGE OF THE TEAR
+===================================================== */
+
+.tear-edge {
+  position: absolute;
+
+  top: 0;
+
+  width: 3px;
+  height: 100%;
+
+  border-radius: 999px;
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      #ffffff 7%,
+      #ffffff 38%,
+      #ffffff 62%,
+      #f1f1f1 82%,
+      transparent 100%
+    );
+
+  filter:
+    drop-shadow(
+      0 0 4px
+      rgba(255, 255, 255, 1)
+    )
+    drop-shadow(
+      0 0 13px
+      rgba(255, 255, 255, 0.65)
+    );
+}
+
+
+/* Left side */
+
+.tear-edge.left {
+  left: -5px;
+
+  transform:
+    rotateY(14deg)
+    translateZ(5px);
+}
+
+
+/* Right side */
+
+.tear-edge.right {
+  right: -5px;
+
+  transform:
+    rotateY(-14deg)
+    translateZ(5px);
+}
+
+
+/* =====================================================
+   DARK 3D DEPTH INSIDE TEAR
+===================================================== */
+
+.tear-depth {
+  position: absolute;
+
+  left: 50%;
+  top: 2%;
+
+  width: 18px;
+  height: 96%;
+
+  transform:
+    translateX(-50%)
+    translateZ(-12px);
+
+  background:
+    linear-gradient(
+      to right,
+      transparent,
+      rgba(0, 0, 0, 0.85),
+      #020202,
+      rgba(0, 0, 0, 0.98),
+      transparent
+    );
+
+  filter:
+    blur(1.2px);
+
+  opacity: 0.95;
+}
+
+
+/* =====================================================
+   CLAW TIP
+===================================================== */
+
+.tear::before {
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: -42px;
+
+  width: 48px;
+  height: 82px;
+
+  transform:
+    translateX(-50%)
+    rotate(-10deg);
+
+  background:
+    linear-gradient(
+      to bottom,
+      transparent 0%,
+      #ffffff 35%,
+      #ffffff 62%,
+      transparent 100%
+    );
+
+  clip-path:
+    polygon(
+      50% 0%,
+      100% 100%,
+      50% 76%,
+      0% 100%
+    );
+
+  filter:
+    drop-shadow(
+      0 0 8px
+      rgba(255, 255, 255, 0.95)
+    )
+    drop-shadow(
+      0 0 20px
+      rgba(255, 255, 255, 0.4)
+    );
+}
+
+
+/* =====================================================
+   BLOOD CONTAINER
+===================================================== */
+
+.blood-drops {
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  z-index: 20;
+}
+
+
+/* =====================================================
+   BLOOD DROP
+===================================================== */
+
+.blood {
+  position: absolute;
+
+  width: 8px;
+  height: 16px;
+
+  border-radius:
+    65% 65% 70% 70%;
+
+  background:
+    linear-gradient(
+      145deg,
+      #ff6678,
+      #e00028 55%,
+      #a9001d
+    );
+
+  box-shadow:
+    0 0 8px
+      rgba(255, 30, 60, 0.6),
+    0 0 18px
+      rgba(220, 0, 35, 0.25);
+
+  opacity: 0;
+
+  transform:
+    translate3d(0, -35px, 0)
+    scale(0.25);
+
+  animation:
+    bloodDrop
+    1.3s
+    cubic-bezier(0.2, 0.8, 0.3, 1)
+    forwards;
+}
+
+
+/* =====================================================
+   BLOOD POSITIONS
+===================================================== */
+
+.blood-one {
+  left: 31%;
+  top: 29%;
+
+  animation-delay: 0.88s;
+}
+
+.blood-two {
+  left: 38%;
+  top: 43%;
+
+  animation-delay: 0.96s;
+}
+
+.blood-three {
+  left: 48%;
+  top: 25%;
+
+  animation-delay: 1.02s;
+}
+
+.blood-four {
+  left: 56%;
+  top: 46%;
+
+  animation-delay: 1.10s;
+}
+
+.blood-five {
+  left: 65%;
+  top: 31%;
+
+  animation-delay: 1.17s;
+}
+
+.blood-six {
+  left: 72%;
+  top: 51%;
+
+  animation-delay: 1.24s;
+}
+
+
+/* =====================================================
+   BLOOD FALLING
+===================================================== */
+
+@keyframes bloodDrop {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate3d(0, -35px, 0)
+      scale(0.2)
+      rotate(-10deg);
+  }
+
+  18% {
+    opacity: 1;
+
+    transform:
+      translate3d(0, 0, 80px)
+      scale(1)
+      rotate(0);
+  }
+
+  55% {
+    opacity: 1;
+
+    transform:
+      translate3d(8px, 60px, 120px)
+      scale(0.95)
+      rotate(8deg);
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate3d(15px, 130px, 150px)
+      scale(0.6)
+      rotate(14deg);
+  }
+}
+
+
+/* =====================================================
+   BLOOD PARTICLE
+===================================================== */
+
+.blood::after {
+  content: "";
+
+  position: absolute;
+
+  width: 3px;
+  height: 6px;
+
+  left: -8px;
+  top: 10px;
+
+  border-radius: 50%;
+
+  background: #ff3048;
+
+  opacity: 0.85;
+}
+
+
+/* =====================================================
+   ATTACK PARTICLES
+===================================================== */
+
+.attack-particles {
+  position: absolute;
+
+  inset: 0;
+
+  z-index: 15;
+}
+
+.attack-particles span {
+  position: absolute;
+
+  width: 3px;
+  height: 3px;
+
+  border-radius: 50%;
+
+  background: #ffffff;
+
+  box-shadow:
+    0 0 8px
+    rgba(255, 255, 255, 0.9);
+
+  opacity: 0;
+
+  animation:
+    attackParticle
+    0.9s
+    ease-out
+    forwards;
+}
+
+.attack-particles span:nth-child(1) {
+  left: 28%;
+  top: 40%;
+
+  animation-delay: 0.45s;
+}
+
+.attack-particles span:nth-child(2) {
+  left: 36%;
+  top: 55%;
+
+  animation-delay: 0.50s;
+}
+
+.attack-particles span:nth-child(3) {
+  left: 44%;
+  top: 30%;
+
+  animation-delay: 0.55s;
+}
+
+.attack-particles span:nth-child(4) {
+  left: 53%;
+  top: 62%;
+
+  animation-delay: 0.60s;
+}
+
+.attack-particles span:nth-child(5) {
+  left: 61%;
+  top: 35%;
+
+  animation-delay: 0.65s;
+}
+
+.attack-particles span:nth-child(6) {
+  left: 70%;
+  top: 58%;
+
+  animation-delay: 0.70s;
+}
+
+.attack-particles span:nth-child(7) {
+  left: 77%;
+  top: 28%;
+
+  animation-delay: 0.75s;
+}
+
+.attack-particles span:nth-child(8) {
+  left: 23%;
+  top: 65%;
+
+  animation-delay: 0.80s;
+}
+
+
+/* =====================================================
+   PARTICLE MOVEMENT
+===================================================== */
+
+@keyframes attackParticle {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate3d(0, 0, -300px)
+      scale(0.2);
+  }
+
+  25% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate3d(
+        30px,
+        -80px,
+        250px
+      )
+      scale(1.4);
+  }
+}
+
+
+/* =====================================================
+   ATTACK MESSAGE
+===================================================== */
+
+.attack-message {
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  display: flex;
+
+  flex-direction: column;
+
+  align-items: center;
+
+  gap: 5px;
+
+  color: #ffffff;
+
+  font-size:
+    clamp(
+      32px,
+      6vw,
+      80px
+    );
+
+  font-weight: 900;
+
+  letter-spacing: 5px;
+
+  text-shadow:
+    0 0 8px
+      rgba(255, 255, 255, 0.9),
+    0 0 30px
+      rgba(245, 168, 200, 0.7);
+
+  opacity: 0;
+
+  transform:
+    translate(-50%, -50%)
+    scale(0.25)
+    translateZ(-500px);
+
+  animation:
+    attackMessage
+    1.2s
+    cubic-bezier(0.15, 0.8, 0.2, 1)
+    0.75s
+    forwards;
+
+  z-index: 50;
+}
+
+.attack-kanji {
+  font-size: 32px;
+
+  filter:
+    drop-shadow(
+      0 0 10px
+      rgba(255, 80, 100, 0.8)
+    );
+}
+
+@keyframes attackMessage {
+
+  0% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(0.25)
+      translateZ(-500px);
+  }
+
+  25% {
+    opacity: 1;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.25)
+      translateZ(200px);
+  }
+
+  40% {
+    transform:
+      translate(-50%, -50%)
+      scale(1)
+      translateZ(0);
+  }
+
+  75% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+
+    transform:
+      translate(-50%, -50%)
+      scale(1.15)
+      translateZ(0);
+  }
+}
+
+
+/* =====================================================
+   CAT ATTACK
+===================================================== */
+
+.cat-attacking {
+  z-index: 1100;
+
+  pointer-events: none;
+
+  /*
+    Don't use margin/position here.
+    JavaScript controls the cat position.
+  */
+
+  animation:
+    catAttack
+    2.3s
+    cubic-bezier(0.15, 0.8, 0.15, 1)
+    forwards;
+}
+
+.cat-attacking .anime-cat {
+  animation: none;
+}
+
+
+/* =====================================================
+   CAT JUMPS TOWARD CAMERA
+===================================================== */
+
+@keyframes catAttack {
+
+  0% {
+    filter:
+      drop-shadow(
+        0 0 10px
+        rgba(245, 168, 200, 0.15)
+      );
+
+    transform-origin: center;
+  }
+
+  15% {
+    filter:
+      drop-shadow(
+        0 0 25px
+        rgba(245, 168, 200, 0.35)
+      );
+
+    transform:
+      scale(1.05);
+  }
+
+  30% {
+    filter:
+      drop-shadow(
+        0 0 45px
+        rgba(245, 168, 200, 0.6)
+      );
+
+    transform:
+      scale(1.35);
+  }
+
+  42% {
+    filter:
+      drop-shadow(
+        0 0 75px
+        rgba(255, 255, 255, 0.85)
+      );
+
+    transform:
+      scale(1.8)
+      translateY(-15px);
+  }
+
+  52% {
+    filter:
+      drop-shadow(
+        0 0 100px
+        rgba(255, 255, 255, 0.95)
+      );
+
+    transform:
+      scale(2.25)
+      translateY(-20px);
+  }
+
+  63% {
+    transform:
+      scale(1.6)
+      translateY(-5px);
+  }
+
+  78% {
+    transform:
+      scale(1.25);
+  }
+
+  100% {
+    transform:
+      scale(1);
+
+    filter: none;
+  }
+}
+
+
+/* =====================================================
+   ATTACK MEOW
+===================================================== */
+
+.attack-meow {
+  color: #ff9fbd !important;
+
+  font-size: 22px;
+
+  font-weight: 900;
+
+  text-shadow:
+    0 0 15px
+      rgba(255, 159, 189, 0.8);
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media (max-width: 600px) {
+
+  .cat-wrapper {
+    width: 330px;
+    height: 350px;
+  }
+
+  .anime-cat {
+    width: 330px;
+    height: 350px;
+  }
+
+  .tear {
+    height: 72%;
+  }
+
+  .tear-one {
+    left: 24%;
+  }
+
+  .tear-two {
+    left: 43%;
+  }
+
+  .tear-three {
+    left: 62%;
+  }
+
+  .attack-message {
+    letter-spacing: 3px;
+  }
+}
+
+
+/* =====================================================
+   REDUCED MOTION
+===================================================== */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+  }
+}
